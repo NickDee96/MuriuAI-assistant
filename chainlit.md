@@ -1,6 +1,6 @@
 # Mũriũ AI - Tech AI Assistant
 
-Welcome to Mũriũ AI, your intelligent tech assistant developed by the exceptional team at [Nick](https://github.com/NickDee96). We are here to assist you with factual answers to your queries using a combination of advanced language models and powerful tools.
+Welcome to Mũriũ AI, your intelligent tech assistant developed by [Nick Mumero](https://github.com/NickDee96). We are here to assist you with factual answers to your queries using a combination of advanced language models and powerful tools.
 
 ## Features
 

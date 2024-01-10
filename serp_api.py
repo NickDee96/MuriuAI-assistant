@@ -1,6 +1,7 @@
 import requests
 import json
 import logging
+import os
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -52,7 +53,7 @@ def search(query: str) -> dict:
     # Define the URL and headers for the request
     url = "https://google.serper.dev/search"
     headers = {
-        'X-API-KEY': '21009d36e9d78792b627f923437715078b7522b1',
+        'X-API-KEY': os.getenv("SERP_API_KEY"),
         'Content-Type': 'application/json'
     }
     # Create the payload for the request
