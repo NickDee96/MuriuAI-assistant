@@ -15,7 +15,6 @@ MuriuAI-assistant
 ├── chainlit.md
 ├── Dockerfile
 ├── image_generator.py
-├── ngrok.exe
 ├── orch.py
 ├── requirements.txt
 ├── serp_api.py
