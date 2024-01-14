@@ -1,14 +1,17 @@
-#from duckduckgo_search import DDGS
+from duckduckgo_search import DDGS
 import requests
 from bs4 import BeautifulSoup
 import html2text
 from llama_index.tools import FunctionTool
-from serp_api import search
+#from serp_api import search
 from image_generator import generate_image
+from llama_hub.tools.code_interpreter import CodeInterpreterToolSpec
+from llama_index.agent import OpenAIAgent
 
+code_spec = CodeInterpreterToolSpec()
 
 # Initialize DuckDuckGo Search
-#ddgs = DDGS()
+ddgs = DDGS()
 
 def html_to_markdown(html_content: str) -> str:
     """
@@ -36,18 +39,18 @@ def html_to_markdown(html_content: str) -> str:
     return markdown_text
 
 
-#def search(query: str) -> list:
-#    """
-#    Perform a search engine query and return the results.
-#
-#    Args:
-#        query (str): Search query.
-#
-#    Returns:
-#        list: List of search results.
-#    """
-#    results = list(ddgs.text(query, max_results=10))
-#    return results
+def search(query: str) -> list:
+    """
+    Perform a search engine query and return the results.
+
+    Args:
+        query (str): Search query.
+
+    Returns:
+        list: List of search results.
+    """
+    results = list(ddgs.text(query, max_results=10))
+    return results
 
 def crawl_site(link: str) -> str:
     """
@@ -75,4 +78,6 @@ tools = [
     FunctionTool.from_defaults(fn = crawl_site),
     FunctionTool.from_defaults(fn = generate_image)
 ]
+
+tools += code_spec.to_tool_list()
 
