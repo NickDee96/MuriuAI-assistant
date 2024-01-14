@@ -1,0 +1,9 @@
+# Ignore venv folder
+venv/
+
+# Ignore .files folder
+.files/
+
+# Ignore __pycache__ files
+__pycache__/
+ngrok.exe
