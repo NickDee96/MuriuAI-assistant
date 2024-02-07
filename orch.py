@@ -79,5 +79,5 @@ tools = [
     FunctionTool.from_defaults(fn = generate_image)
 ]
 
-tools += code_spec.to_tool_list()
+#tools += code_spec.to_tool_list()
 

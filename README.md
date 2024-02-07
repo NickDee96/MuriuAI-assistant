@@ -57,7 +57,7 @@ To set up the Mũriũ AI Assistant project, follow these steps:
 
 5. Run the Docker container using the following command:
    ```
-   docker run -p 8000:8000 muriu-ai-assistant
+   docker run -p 80:8000 muriu-ai-assistant
    ```
 
 6. The Mũriũ AI Assistant will now be running on `http://localhost:8000`. You can access it using a web browser or send requests programmatically.
