@@ -4,10 +4,9 @@ from dotenv import load_dotenv
 load_dotenv()
 
 from typing import Optional
-from llama_index.llms import OpenAI
-from llama_index.agent import OpenAIAgent
+from llama_index.llms.openai import OpenAI
+from llama_index.agent.openai import OpenAIAgent
 import chainlit as cl
-from llama_index.callbacks.base import CallbackManager
 from orch import tools
 
 from utilities import get_formatted_date_time, get_location

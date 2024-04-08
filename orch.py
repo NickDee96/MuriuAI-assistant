@@ -2,11 +2,11 @@ from duckduckgo_search import DDGS
 import requests
 from bs4 import BeautifulSoup
 import html2text
-from llama_index.tools import FunctionTool
+from llama_index.core.tools import FunctionTool
 #from serp_api import search
 from image_generator import generate_image
-from llama_hub.tools.code_interpreter import CodeInterpreterToolSpec
-from llama_index.agent import OpenAIAgent
+from llama_index.tools.code_interpreter import CodeInterpreterToolSpec
+from llama_index.agent.openai import OpenAIAgent
 
 code_spec = CodeInterpreterToolSpec()
 
