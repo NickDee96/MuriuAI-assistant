@@ -7,3 +7,4 @@ venv/
 # Ignore __pycache__ files
 __pycache__/
 ngrok.exe
+.conda/

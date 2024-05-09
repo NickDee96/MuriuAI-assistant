@@ -5,13 +5,18 @@ import html2text
 from llama_index.core.tools import FunctionTool
 #from serp_api import search
 from image_generator import generate_image
-from llama_index.tools.code_interpreter import CodeInterpreterToolSpec
+#from llama_index.tools.code_interpreter import CodeInterpreterToolSpec
+from llama_index.tools.arxiv import ArxivToolSpec
+from llama_index.core.tools.ondemand_loader_tool import OnDemandLoaderTool
+from llama_index.readers.wikipedia import WikipediaReader
 from llama_index.agent.openai import OpenAIAgent
 
-code_spec = CodeInterpreterToolSpec()
+#code_spec = CodeInterpreterToolSpec()
 
 # Initialize DuckDuckGo Search
 ddgs = DDGS()
+
+reader = WikipediaReader()
 
 def html_to_markdown(html_content: str) -> str:
     """
@@ -73,11 +78,21 @@ def crawl_site(link: str) -> str:
 
 
 
+
+
 tools = [
     FunctionTool.from_defaults(fn = search),
     FunctionTool.from_defaults(fn = crawl_site),
-    FunctionTool.from_defaults(fn = generate_image)
+    FunctionTool.from_defaults(fn = generate_image),
+    OnDemandLoaderTool.from_defaults(
+        reader,
+        name="WikipediaTool",
+        description="A tool for loading and querying articles from Wikipedia",
+    )
+
 ]
 
-#tools += code_spec.to_tool_list()
+arxiv_codespec = ArxivToolSpec()
 
+#tools += code_spec.to_tool_list()
+tools += arxiv_codespec.to_tool_list()
