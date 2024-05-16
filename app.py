@@ -38,13 +38,14 @@ async def factory():
     Settings.callback_manager = CallbackManager([cl.LlamaIndexCallbackHandler()])
     if model == "openai":
         Settings.llm = OpenAI(
-            model="gpt-4-turbo",
+            model="gpt-4o",
             callback_manager = Settings.callback_manager
             )
         agent = OpenAIAgent.from_tools(
             tools=tools,
             verbose=True,
-            system_prompt=SYS_PROMPT
+            system_prompt=SYS_PROMPT,
+            callback_manager = Settings.callback_manager
             )
     elif model == "anthropic":
         Settings.llm = Anthropic(
