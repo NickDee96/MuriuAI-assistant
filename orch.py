@@ -5,13 +5,20 @@ import html2text
 from llama_index.core.tools import FunctionTool
 #from serp_api import search
 from image_generator import generate_image
-#from llama_index.tools.code_interpreter import CodeInterpreterToolSpec
+from llama_index.tools.code_interpreter import CodeInterpreterToolSpec
 from llama_index.tools.arxiv import ArxivToolSpec
 from llama_index.core.tools.ondemand_loader_tool import OnDemandLoaderTool
 from llama_index.readers.wikipedia import WikipediaReader
 from llama_index.agent.openai import OpenAIAgent
+from llama_index.tools.exa import ExaToolSpec
+from copy import copy
 
-#code_spec = CodeInterpreterToolSpec()
+
+exa_tool = ExaToolSpec(
+    api_key="afe8b106-197a-451a-8702-82188f3301ef",
+)
+
+code_spec = CodeInterpreterToolSpec()
 
 # Initialize DuckDuckGo Search
 ddgs = DDGS()
@@ -79,20 +86,22 @@ def crawl_site(link: str) -> str:
 
 
 
+def get_tools():
+    tools = [
+        #FunctionTool.from_defaults(fn = search),
+        FunctionTool.from_defaults(fn = crawl_site),
+        FunctionTool.from_defaults(fn = generate_image),
+        OnDemandLoaderTool.from_defaults(
+            reader,
+            name="WikipediaTool",
+            description="A tool for loading and querying articles from Wikipedia",
+        )
 
-tools = [
-    FunctionTool.from_defaults(fn = search),
-    FunctionTool.from_defaults(fn = crawl_site),
-    FunctionTool.from_defaults(fn = generate_image),
-    OnDemandLoaderTool.from_defaults(
-        reader,
-        name="WikipediaTool",
-        description="A tool for loading and querying articles from Wikipedia",
-    )
+    ]
 
-]
+    arxiv_codespec = ArxivToolSpec()
 
-arxiv_codespec = ArxivToolSpec()
-
-#tools += code_spec.to_tool_list()
-tools += arxiv_codespec.to_tool_list()
+    #tools += code_spec.to_tool_list()
+    tools += arxiv_codespec.to_tool_list()
+    tools += exa_tool.to_tool_list()
+    return copy(tools)
