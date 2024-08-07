@@ -12,10 +12,11 @@ from llama_index.readers.wikipedia import WikipediaReader
 from llama_index.agent.openai import OpenAIAgent
 from llama_index.tools.exa import ExaToolSpec
 from copy import copy
+import os
 
 
 exa_tool = ExaToolSpec(
-    api_key="afe8b106-197a-451a-8702-82188f3301ef",
+    api_key = os.getenv("EXA_API_KEY"),
 )
 
 code_spec = CodeInterpreterToolSpec()

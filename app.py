@@ -1,5 +1,6 @@
 import logging
 from dotenv import load_dotenv
+import os
 
 load_dotenv()
 
@@ -32,7 +33,8 @@ SYS_PROMPT = ("You are a Tech AI assistant called Mũriũ, built by developed by
               f"\n\n The current date and time: {get_formatted_date_time()}. "
               f"\n The current location is: {get_location()}")
 
-model = "anthropic"
+model = os.getenv("MODEL_TYPE", "openai")
+logger.info(f"Using {model} model")
 
 def get_agent(model = "anthropic"):
     if model == "openai":
@@ -77,6 +79,7 @@ async def main(message: cl.Message):
     else:
         response = await cl.make_async(agent.chat)(message.content)
 
+    print(response)
     response_message = cl.Message(content="")
 
     if model == "openai":
