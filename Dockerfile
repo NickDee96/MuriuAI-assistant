@@ -18,4 +18,4 @@ EXPOSE 8000
 
 
 # Run app.py when the container launches
-CMD ["chainlit", "run", "app.py"]
+CMD ["chainlit", "run", "app.py", "--host", "0.0.0.0"]
