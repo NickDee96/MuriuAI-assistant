@@ -13,7 +13,8 @@ from llama_index.agent.openai import OpenAIAgent
 from llama_index.tools.exa import ExaToolSpec
 from copy import copy
 import os
-
+from markitdown import MarkItDown
+from openai import OpenAI
 
 exa_tool = ExaToolSpec(
     api_key = os.getenv("EXA_API_KEY"),
@@ -54,7 +55,7 @@ def html_to_markdown(html_content: str) -> str:
 
 def search(query: str) -> list:
     """
-    Perform a search engine query and return the results.
+    Perform a search engine query and return the results.f
 
     Args:
         query (str): Search query.
@@ -91,7 +92,7 @@ def get_tools():
     tools = [
         #FunctionTool.from_defaults(fn = search),
         FunctionTool.from_defaults(fn = crawl_site),
-        FunctionTool.from_defaults(fn = generate_image),
+        #FunctionTool.from_defaults(fn = generate_image),
         OnDemandLoaderTool.from_defaults(
             reader,
             name="WikipediaTool",
@@ -106,3 +107,27 @@ def get_tools():
     tools += arxiv_codespec.to_tool_list()
     tools += exa_tool.to_tool_list()
     return copy(tools)
+
+
+
+
+
+
+
+
+def extract_text(file_path: str) -> str:
+    """
+    Extract text content from any file.
+
+    Args:
+        file_path (str): Path to the PDF file.
+
+    Returns:
+        str: Extracted text content.
+    """
+    text_content = ""
+    client = OpenAI()
+    md = MarkItDown(llm_client=client, llm_model="gpt-4o")
+    result = md.convert(file_path)
+    text_content = result.text_content
+    return text_content
